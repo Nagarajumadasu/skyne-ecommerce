@@ -6,14 +6,12 @@ function Hero() {
       {/* Background Video */}
       <video
         src="/heroVideo.mp4"
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        className="absolute top-0 left-0 w-full h-full object-cover z-0 brightness-50"
         autoPlay
         loop
         muted
         playsInline
       />
-
-      <div className="absolute inset-0 bg-black bg-opacity-40 z-10" />
 
       <div className="relative z-20 flex h-full w-full items-center justify-end px-4 md:px-16">
         <div className="text-right max-w-xl">

@@ -6,7 +6,7 @@ function Hero() {
       {/* Background Video */}
       <video
         src="/heroVideo.mp4"
-        className="absolute top-0 left-0 w-full h-full object-cover z-0 brightness-50"
+        className="absolute top-0 left-0 w-full h-full object-cover z-0 brightness-60"
         autoPlay
         loop
         muted
@@ -22,7 +22,7 @@ function Hero() {
             Elevate your everyday style with the bold simplicity of Skyne. Our fashion-forward pieces blend streetwear attitude with premium comfort—crafted for those who express more with less.
           </p>
           <button className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-200 transition duration-200">
-            Pre-Order Now
+            Shop Now
           </button>
         </div>
       </div>

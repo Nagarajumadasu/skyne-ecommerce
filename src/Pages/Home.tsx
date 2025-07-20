@@ -9,7 +9,7 @@ import AboutUs from "./AboutUs";
 function Home() {
   return (
     <>
-      <Navbar />
+      
       <Hero />
       <Product />
       <Footer />

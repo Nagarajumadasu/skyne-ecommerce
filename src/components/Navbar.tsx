@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { Heart, ShoppingCart, User } from "lucide-react"; // Install lucide-react if not already
+import { Heart, ShoppingCart, User } from "lucide-react";
 import logo2 from "../assets/logo2.png";
 import { useState } from "react";
 
 function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // change this based on your auth logic
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <nav className="w-full bg-black text-white h-16 shadow-sm font-[Outfit]">

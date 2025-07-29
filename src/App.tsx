@@ -3,18 +3,18 @@ import { Suspense, lazy } from "react";
 import Navbar from "./components/Navbar";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Checkout from "./Pages/Checkout";
-import Wishlist from "./Pages/Wishlist";
+import Wishlist from "./Pages/Wishlist.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
 // Lazy load components for better performance
 const Home = lazy(() => import("./Pages/Home"));
-const AboutUs = lazy(() => import("./Pages/AboutUs"));
-const Products = lazy(() => import("./Pages/Product"));
-const ProductDetail = lazy(() => import("./Pages/ProductDetail"));
-const ContactUs = lazy(() => import("./Pages/ContactUs"));
-const Cart = lazy(() => import("./Pages/Cart")); 
+const AboutUs = lazy(() => import("./Pages/AboutUs.jsx"));
+const Products = lazy(() => import("./Pages/Product.jsx"));
+const ProductDetail = lazy(() => import("./Pages/ProductDetail.jsx"));
+const ContactUs = lazy(() => import("./Pages/ContactUs.jsx"));
+const Cart = lazy(() => import("./Pages/Cart.jsx")); 
 
 // Loading component
 const LoadingSpinner = () => (
@@ -42,7 +42,7 @@ export default function App() {
     <ErrorBoundary>
       <div className="min-h-screen bg-white">
         <Navbar />
-       <ToastContainer position="top-center" autoClose={1500} />
+        <ToastContainer position="top-center" autoClose={1500} />
 
         <main>
           <Suspense fallback={<LoadingSpinner />}>
@@ -54,7 +54,7 @@ export default function App() {
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
-              <Route path="/wishlist" element={<Wishlist />} /> {/* ✅ FIXED */}
+              <Route path="/wishlist" element={<Wishlist />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

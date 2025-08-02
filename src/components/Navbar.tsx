@@ -18,7 +18,7 @@ function Navbar() {
     },
     {
       name: "Contact Us",
-      slug: "/contact"
+      slug: "/contact-us"
     }
   ];
 

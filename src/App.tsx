@@ -6,14 +6,15 @@ import Checkout from "./Pages/Checkout";
 import Wishlist from "./Pages/Wishlist.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "./components/Footer";
 
 
 // Lazy load components for better performance
 const Home = lazy(() => import("./Pages/Home"));
-const AboutUs = lazy(() => import("./Pages/AboutUs.jsx"));
-const Products = lazy(() => import("./Pages/Product.jsx"));
+const AboutUs = lazy(() => import("./Pages/AboutUs"));
+const Products = lazy(() => import("./Pages/Products"));
 const ProductDetail = lazy(() => import("./Pages/ProductDetail.jsx"));
-const ContactUs = lazy(() => import("./Pages/ContactUs.jsx"));
+const ContactUs = lazy(() => import("./Pages/ContactUs"));
 const Cart = lazy(() => import("./Pages/Cart.jsx")); 
 
 // Loading component
@@ -59,6 +60,7 @@ export default function App() {
             </Routes>
           </Suspense>
         </main>
+        <Footer/>
       </div>
     </ErrorBoundary>
   );

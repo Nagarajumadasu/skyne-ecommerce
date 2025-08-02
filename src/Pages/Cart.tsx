@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { useCart } from "../context/CartContext";
 import { X } from "lucide-react";

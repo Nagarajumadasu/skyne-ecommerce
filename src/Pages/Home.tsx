@@ -9,7 +9,6 @@ import AboutUs from "./AboutUs";
 function Home() {
   return (
     <>
-      
       <Hero />
       <Product />
       <Footer />

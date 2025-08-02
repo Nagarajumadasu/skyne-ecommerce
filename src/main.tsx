@@ -13,7 +13,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <WishlistProvider>
             <App />
           </WishlistProvider>
-        
       </CartProvider>
     </BrowserRouter>
   </React.StrictMode>

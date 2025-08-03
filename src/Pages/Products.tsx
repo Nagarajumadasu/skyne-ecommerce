@@ -1,5 +1,3 @@
-// Product.jsx
-
 import { Link } from "react-router-dom";
 import squid_t_01 from "../assets/squid_t_01.png";
 import squid_t_02 from "../assets/squid_t_02.png";

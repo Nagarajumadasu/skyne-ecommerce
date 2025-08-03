@@ -1,18 +1,11 @@
- // @ts-nocheck 
-import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import Footer from '../components/Footer';
-import Product from "./Product";
-import AboutUs from "./AboutUs";
-
+import Product from "./Products";
 
 function Home() {
   return (
     <>
-      
       <Hero />
       <Product />
-      <Footer />
     </>
   );
 }

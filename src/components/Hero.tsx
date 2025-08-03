@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button"
 
 function Hero() {
   return (
@@ -21,9 +22,9 @@ function Hero() {
           <p className="text-white text-lg md:text-xl mb-8 leading-relaxed">
             Elevate your everyday style with the bold simplicity of Skyne. Our fashion-forward pieces blend streetwear attitude with premium comfort—crafted for those who express more with less.
           </p>
-          <button className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-200 transition duration-200">
+          <Button className="px-8 py-3 rounded-full font-semibold">
             Shop Now
-          </button>
+          </Button>
         </div>
       </div>
     </section>

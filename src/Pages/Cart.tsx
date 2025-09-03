@@ -12,7 +12,7 @@ function Cart() {
   );
 
   return (
-    <div className="container mx-auto py-12 px-4">
+    <div className="container mx-auto py-12 px-4 min-h-screen">
       <h1 className="text-4xl font-bold mb-8 text-center">Your Shopping Cart</h1>
       
       {cartItems.length === 0 ? (
@@ -44,7 +44,7 @@ function Cart() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => updateQuantity(item.id, item.size, item.quantity - 1)}
+                    onClick={() => updateQuantity(item.id,  item.quantity - 1, item.size)}
                     disabled={item.quantity <= 1}
                   >
                     -
@@ -53,7 +53,7 @@ function Cart() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => updateQuantity(item.id, item.size, item.quantity + 1)}
+                    onClick={() => updateQuantity(item.id, item.quantity + 1, item.size)}
                   >
                     +
                   </Button>

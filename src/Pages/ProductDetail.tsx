@@ -16,6 +16,7 @@ import squid_t_11 from "../assets/squid_t_11.png";
 import squid_t_22 from "../assets/squid_t_22.png";
 import squid_t_33 from "../assets/squid_t_33.png";
 import squid_t_44 from "../assets/squid_t_44.png";
+import { Button } from "@/components/ui/button";
 
 // Product data
 const productData = [
@@ -198,17 +199,17 @@ const ProductDetail = () => {
               {product.sizes.map((size) => {
                 const active = size === selectedSize;
                 return (
-                  <button
+                  <Button
                     key={size}
                     onClick={() => setSelectedSize(size)}
                     className={`px-4 py-2 rounded border text-sm transition ${
                       active
-                        ? "bg-black text-white border-black"
+                        ? " border-black"
                         : "border-gray-400 hover:bg-black hover:text-white"
                     }`}
                   >
                     {size}
-                  </button>
+                  </Button>
                 );
               })}
             </div>

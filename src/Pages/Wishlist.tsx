@@ -1,34 +1,24 @@
-import { useWishlist } from "../context/WishlistContext";
-import { useCart, CartItem } from "../context/CartContext";
 import { Trash, ShoppingCart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-  size?: string;
-  color?: string;
-}
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { CartItem, Product } from "@/types/models";
+import { addToCart } from "@/store/slices/cartSlice";
+import { toggleWishlist } from "@/store/slices/wishlistSlice";
 
 const Wishlist = () => {
-  const { wishlistItems, removeFromWishlist } = useWishlist();
-  const { addToCart } = useCart();
+  const dispatch = useDispatch();
+  const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
 
   const handleMoveToCart = (item: Product) => {
-    // 1. Create a new object that conforms to the CartItem type
     const cartItem: CartItem = {
       ...item,
       quantity: 1,
     };
 
-    // 2. Add this new cartItem to the cart
-    addToCart(cartItem);
-
-    // 3. Remove the original item from the wishlist
-    removeFromWishlist(item.id);
+    dispatch(addToCart(cartItem));
+    dispatch(toggleWishlist(item)); // Remove from wishlist
   };
 
   return (
@@ -39,16 +29,18 @@ const Wishlist = () => {
         </CardHeader>
         <CardContent>
           {wishlistItems.length === 0 ? (
-            <p className="text-gray-500 text-center py-8">Your wishlist is empty.</p>
+            <p className="text-gray-500 text-center py-8">
+              Your wishlist is empty.
+            </p>
           ) : (
             <div className="space-y-4">
-              {wishlistItems.map((item: Product) => (
+              {wishlistItems.map((item) => (
                 <div
                   key={item.id}
                   className="flex flex-col sm:flex-row items-start sm:items-center gap-4 border-b pb-4 last:border-b-0 last:pb-0"
                 >
                   <img
-                    src={item.image}
+                    src={item.images[0]}
                     alt={item.title}
                     className="w-24 h-24 rounded object-cover"
                   />
@@ -72,7 +64,7 @@ const Wishlist = () => {
                       Add to Cart
                     </Button>
                     <Button
-                      onClick={() => removeFromWishlist(item.id)}
+                      onClick={() => dispatch(toggleWishlist(item))}
                       variant="ghost"
                       size="icon"
                       className="text-red-500 hover:text-red-700"

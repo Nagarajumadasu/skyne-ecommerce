@@ -1,9 +1,12 @@
-import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { removeFromCart, updateQuantity } from "@/store/slices/cartSlice";
 
 function Cart() {
-  const { cartItems, removeFromCart, updateQuantity } = useCart();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const subtotal = cartItems.reduce(
@@ -29,7 +32,7 @@ function Cart() {
             {cartItems.map((item) => (
               <div key={`${item.id}-${item.size}`} className="flex items-center gap-4 border-b pb-4">
                 <img
-                  src={item.image}
+                  src={item.images[0]}
                   alt={item.title}
                   className="w-24 h-24 rounded object-cover"
                 />
@@ -44,7 +47,7 @@ function Cart() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => updateQuantity(item.id,  item.quantity - 1, item.size)}
+                    onClick={() => dispatch(updateQuantity({id: item.id, quantity: item.quantity - 1}))}
                     disabled={item.quantity <= 1}
                   >
                     -
@@ -53,14 +56,14 @@ function Cart() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => updateQuantity(item.id, item.quantity + 1, item.size)}
+                    onClick={() => dispatch(updateQuantity({id: item.id, quantity: item.quantity + 1}))}
                   >
                     +
                   </Button>
                 </div>
                 <Button
                   variant="ghost"
-                  onClick={() => removeFromCart(item.id, item.size)}
+                  onClick={() => dispatch(removeFromCart(item.id))}
                   className="text-red-500"
                 >
                   Remove

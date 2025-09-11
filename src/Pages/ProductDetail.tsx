@@ -1,11 +1,10 @@
-// @ts-nocheck
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useCart } from "../context/CartContext";
-import { useWishlist } from "../context/WishlistContext";
-import Cart from "./Cart";
 import { toast } from "react-toastify";
-
+import { Button } from "@/components/ui/button";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/store/slices/cartSlice";
+import CartDrawer from "@/components/CartDrawer";
 
 // Import assets
 import squid_t_01 from "../assets/squid_t_01.png";
@@ -16,7 +15,7 @@ import squid_t_11 from "../assets/squid_t_11.png";
 import squid_t_22 from "../assets/squid_t_22.png";
 import squid_t_33 from "../assets/squid_t_33.png";
 import squid_t_44 from "../assets/squid_t_44.png";
-import { Button } from "@/components/ui/button";
+import { toggleWishlist } from "@/store/slices/wishlistSlice";
 
 // Product data
 const productData = [
@@ -69,13 +68,11 @@ const productData = [
 const ProductDetail = () => {
   const { id } = useParams();
   const product = productData.find((p) => p.id === Number(id));
-
-  const { addToCart } = useCart();
-  const { addToWishlist } = useWishlist();
+  const dispatch = useDispatch();
+  
   const [isCartOpen, setCartOpen] = useState(false);
-
   const [selectedImage, setSelectedImage] = useState(product?.images[0]);
-  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [qty, setQty] = useState(1);
 
   if (!product) {
@@ -92,34 +89,53 @@ const ProductDetail = () => {
       return;
     }
     
-    addToCart({
-      id: product.id,
-      title: product.name,
-      image: selectedImage,
-      color: product.color,
-      size: selectedSize,
-      price: product.discountedPrice,
-      quantity: qty,
-    });
+    dispatch(
+      addToCart({
+        id: String(product.id),
+        title: product.name,
+        images: product.images,
+        color: product.color,
+        size: selectedSize,
+        price: product.discountedPrice,
+        quantity: qty,
+        stock: 10,
+        showcase: false,
+        description: product.description,
+        category_id: "squid",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        isActive: true
+      })
+    );
 
     setCartOpen(true);
   };
 
   const handleAddToWishlist = () => {
-  addToWishlist({
-    id: product.id,
-    title: product.name,
-    image: selectedImage,
-    color: product.color,
-    price: product.discountedPrice,
-  });
+  dispatch(
+    toggleWishlist({
+      id: String(product.id),
+      title: product.name,
+      images: product.images,
+      color: product.color,
+      size: selectedSize!,
+      price: product.discountedPrice,
+      stock: 10, 
+      showcase: false,
+      description: product.description,
+      category_id: "squid",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      isActive: true,
+    })
+  );
 
   toast.success("Added to Wishlist ❤️");
 };
 
   return (
     <>
-      <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="max-w-7xl min-h-screen mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
         {/* LEFT: Images */}
         <div>
           <div className="relative w-full h-[560px] bg-white rounded-lg overflow-hidden shadow group">
@@ -243,8 +259,7 @@ const ProductDetail = () => {
             </button>
             <button
               onClick={handleAddToWishlist}
-              className="text-black hover:text-red-500"
-                                      >
+              className="text-black hover:text-red-500">
               ♡ Add to wishlist
               </button>
 
@@ -266,7 +281,7 @@ const ProductDetail = () => {
       </div>
 
       {/* Cart Slide-in */}
-      <Cart isOpen={isCartOpen} onClose={() => setCartOpen(false)} />
+      <CartDrawer isOpen={isCartOpen} onClose={() => setCartOpen(false)} />
     </>
   );
 };

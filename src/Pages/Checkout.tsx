@@ -1,7 +1,9 @@
-import { useCart } from "../context/CartContext";
+import { RootState } from "@/store";
+import { useSelector } from "react-redux";
+
 
 const Checkout = () => {
-  const { cartItems } = useCart();
+  const cartItems  = useSelector((state: RootState) => state.cart.items);
 
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -153,7 +155,7 @@ const Checkout = () => {
           {cartItems.map((item) => (
             <div key={item.id} className="flex items-start gap-4 mb-4">
               <img
-                src={item.image}
+                src={item.images[0]}
                 alt={item.title}
                 className="w-16 h-16 rounded object-cover"
               />

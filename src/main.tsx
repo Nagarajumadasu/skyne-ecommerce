@@ -2,18 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { CartProvider } from "./context/CartContext"; // ✅ TS file // ✅ Add this
-import { WishlistProvider } from "./context/WishlistContext";
 import "./index.css";
+import { Provider } from "react-redux";
+import { persistor, store } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <CartProvider>
-          <WishlistProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
             <App />
-          </WishlistProvider>
-      </CartProvider>
+        </PersistGate>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

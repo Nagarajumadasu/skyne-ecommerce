@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../context/CartContext";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/store";
+import { removeFromCart, updateQuantity } from "@/store/slices/cartSlice";
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -10,7 +12,8 @@ interface CartDrawerProps {
 }
 
 const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
-  const { cartItems, removeFromCart, updateQuantity } = useCart();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const dispatch = useDispatch()
   const navigate = useNavigate();
 
   const subtotal = cartItems.reduce(
@@ -33,7 +36,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
             cartItems.map((item) => (
               <div key={`${item.id}-${item.size}`} className="flex items-start gap-4 py-4">
                 <img
-                  src={item.image}
+                  src={item.images[0]}
                   alt={item.title}
                   className="w-16 h-16 rounded object-cover"
                 />
@@ -47,7 +50,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                     <Button
                       variant="outline"
                       size="icon"
-                      onClick={() => updateQuantity(item.id, item.size, item.quantity - 1)}
+                      onClick={() => dispatch(updateQuantity({id: item.id, quantity: item.quantity - 1}))}
                       disabled={item.quantity <= 1}
                     >
                       -
@@ -56,13 +59,13 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                     <Button
                       variant="outline"
                       size="icon"
-                      onClick={() => updateQuantity(item.id, item.size, item.quantity + 1)}
+                      onClick={() => dispatch(updateQuantity({id: item.id, quantity: item.quantity + 1}))}
                     >
                       +
                     </Button>
                     <Button
                       variant="link"
-                      onClick={() => removeFromCart(item.id, item.size)}
+                      onClick={() => dispatch(removeFromCart(item.id))}
                       className="ml-auto text-sm text-red-500"
                     >
                       Remove

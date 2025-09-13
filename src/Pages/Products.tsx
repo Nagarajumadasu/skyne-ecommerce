@@ -45,7 +45,7 @@ function Product() {
   ];
 
   return (
-    <section className="w-full py-16 px-6 bg-black text-white">
+    <section className="w-full py-16 px-6 bg-black text-white min-h-screen">
       <h2 className="text-4xl font-bold text-center mb-14">Our Collections</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-10 max-w-[1440px] mx-auto">
         {products.map((product) => (

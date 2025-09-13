@@ -7,24 +7,22 @@ import Wishlist from "./Pages/Wishlist.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
+import SocialSidebar from "./components/SocialSidebar"; // ✅ import here
 
-
-// Lazy load components for better performance
+// Lazy load components
 const Home = lazy(() => import("./Pages/Home"));
 const AboutUs = lazy(() => import("./Pages/AboutUs"));
 const Products = lazy(() => import("./Pages/Products"));
 const ProductDetail = lazy(() => import("./Pages/ProductDetail.jsx"));
 const ContactUs = lazy(() => import("./Pages/ContactUs"));
-const Cart = lazy(() => import("./Pages/Cart.jsx")); 
+const Cart = lazy(() => import("./Pages/Cart.jsx"));
 
-// Loading component
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center min-h-screen">
     <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-yellow-400"></div>
   </div>
 );
 
-// 404 Not Found component
 const NotFound = () => (
   <div className="flex flex-col items-center justify-center min-h-screen text-center">
     <h1 className="text-6xl font-bold text-gray-800 mb-4">404</h1>
@@ -45,6 +43,9 @@ export default function App() {
         <Navbar />
         <ToastContainer position="top-center" autoClose={1500} />
 
+        {/* ✅ Social Media Sidebar here */}
+        <SocialSidebar />
+
         <main>
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
@@ -60,7 +61,8 @@ export default function App() {
             </Routes>
           </Suspense>
         </main>
-        <Footer/>
+
+        <Footer />
       </div>
     </ErrorBoundary>
   );
